@@ -1,28 +1,40 @@
 "use client"
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataTableButton from "./DataTableButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
 
 const DataTable =  () =>{
-    const [categoryList, setCategoryList] = useState([
-        {
-            id: '1',
-            category_name: 'Food',
-            active: true
-        },
-        {
-            id: '2',
-            category_name: 'Coffee and Tea',
-            active: true
-        },
-        {
-            id: '3',
-            category_name: 'Transport',
-            active: true
+    const [categoryList, setCategoryList] = useState([])
+
+    useEffect(()=>{
+        getCategoryList().then((data)=>{
+            setCategoryList(data)
+        })
+    },[])
+
+    async function getCategoryList(){
+        let response = await axios.get("/api/category")
+        return response.data.data
+    }
+
+    async function doOnClickEdit(id:string){
+        let requestBody = {
+            "id": 1,
+            "category_name": "food",
+            "active": false
         }
-    ])
-    function doOnClickEdit(id:string){
-       
+        try{
+            let response = await axios.post("/api/category",requestBody)
+        }catch(exception){
+            if(exception instanceof AxiosError){
+                let errorData = (exception as AxiosError).response?.data
+                if(errorData.status == "400-001"){
+                    alert("error")
+                }
+            }
+        }
+    
     }
     function doOnClickDelete(id:string){
         console.log(`Delete Button Clicked ${id}`)
