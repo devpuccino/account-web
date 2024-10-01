@@ -3,6 +3,7 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataTableButton from "./DataTableButton";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
+import Link from "next/link";
 
 const DataTable =  () =>{
     const [categoryList, setCategoryList] = useState([])
@@ -36,8 +37,19 @@ const DataTable =  () =>{
         }
     
     }
-    function doOnClickDelete(id:string){
-        console.log(`Delete Button Clicked ${id}`)
+    async function doOnClickDelete(id:string){
+        try{
+            let response = await axios.delete(`/api/category/${id}`)
+            if(response.data.status == "200-000"){
+                let categoryList = await getCategoryList()
+                setCategoryList(categoryList)
+            }
+        }catch(exception){
+            alert(exception.response.data.message)
+        }
+        
+
+
     }
     function onClickCreateCategory(){
      
@@ -46,7 +58,7 @@ const DataTable =  () =>{
       
     }
     return <div>
-        <button onClick = {onClickCreateCategory}>Create Category</button>
+        <Link href={"/category/create"}>Create Category</Link>
         <table id="category-data-table" className="data-table">
         <thead>
             <tr>
