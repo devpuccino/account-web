@@ -1,16 +1,16 @@
 "use client"
 import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
-import { useRef } from "react"
+import { ReactHTMLElement, useRef } from "react"
 
 const CreateCategoryPage = () => {
-    const categoryNameRef = useRef()
-    const statusRef =  useRef()
+    const categoryNameRef = useRef<HTMLInputElement>(null)
+    const statusRef =  useRef<HTMLSelectElement>(null)
     const router = useRouter()
     const doOnClickSave = async() => {
         let data = {
-            category_name: categoryNameRef.current.value,
-            status: statusRef.current.value == "1"
+            category_name: categoryNameRef.current?.value || null,
+            status: (statusRef.current && statusRef.current.value) === "1"
         }
         try{
             let response = await axios.post("/api/category",data)

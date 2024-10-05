@@ -1,10 +1,11 @@
 "use client"
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import DataTableButton from "./DataTableButton";
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
-
+import styles from "./datatable.module.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const DataTable =  () =>{
     const [categoryList, setCategoryList] = useState([])
 
@@ -58,24 +59,27 @@ const DataTable =  () =>{
       
     }
     return <div>
-        <Link href={"/category/create"}>Create Category</Link>
-        <table id="category-data-table" className="data-table">
+        <div className={styles.toolbar_panel}>
+            <Link className={styles.toolbar_button} href={"/category/create"}>
+                <FontAwesomeIcon icon={faPlus} className="icon" size="1x" /> Add Category
+            </Link>
+        </div>
+        <table id="category-data-table" className={styles.datatable}>
         <thead>
             <tr>
-                <th>#</th>
+                <th className={`${styles.col_index} text-center`}>#</th>
                 <th className="text-left">Category Name</th>
-                <th className="text-left">Status</th>
-                <th></th>
+                <th className="text-left" colSpan={2}>Status</th>
             </tr>
         </thead>
         <tbody>
             {categoryList?
                 categoryList?.map((category, index) => {
                     return <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td className="text-center">{index + 1}</td>
                         <td>{category.category_name}</td>
                         <td>{category.active ? "ACTIVE" : "INACTIVE"}</td>
-                        <td>
+                        <td className={styles.management}>
                             <DataTableButton icon={faPenToSquare} dataId={category.id} onClick={doOnClickEdit} />
                             <DataTableButton icon={faTrash} dataId={category.id} onClick={doOnClickDelete}/>
                         </td>
