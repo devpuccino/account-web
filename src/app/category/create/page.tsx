@@ -15,10 +15,9 @@ const CreateCategoryPage = () => {
         try{
             let response = await axios.post("/api/category",data)
             router.push("/category")
-        }catch(error){
-           
-            if(error instanceof AxiosError){
-                alert((error as AxiosError).response.data.message)
+        }catch(error:unknown){
+            if(axios.isAxiosError(error)){
+                alert(error.response?.data.message)
             }else{
                 console.log(error)
             }

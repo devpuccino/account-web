@@ -32,7 +32,10 @@ const DataTable =  () =>{
                 setCategoryList(categoryList)
             }
         }catch(exception){
-            alert(exception.response.data.message)
+            if(axios.isAxiosError(exception)){
+                alert(exception.response?.data.message)
+            }
+            
         }
         
 
