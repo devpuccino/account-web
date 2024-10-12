@@ -1,6 +1,6 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import styles from "./datatablebutton.module.css"
 interface DataTableButtonProps{
     dataId:string
     icon:IconDefinition
@@ -11,8 +11,8 @@ const DataTableButton = ({ dataId, icon, onClick }: DataTableButtonProps) => {
     function handleOnClick(){  
         onClick(dataId);
     }
-    return <button className="data-table-button" onClick={handleOnClick}>
-        <FontAwesomeIcon icon={icon} />
+    return <button className={styles.tool_button} onClick={handleOnClick}>
+        <FontAwesomeIcon className="icon" icon={icon} />
     </button>
 }
 export default DataTableButton;

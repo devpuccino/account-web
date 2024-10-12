@@ -27,19 +27,19 @@ const CreateCategoryPage = () => {
         
     }
     return <div>
-        <div>
-            <label>Category name</label>
-            <input type="text" id="category_name" ref={categoryNameRef} />
+        <div className="form_row">
+            <label className="form_label">Category name</label>
+            <input type="text" className="form_input" id="category_name" ref={categoryNameRef} />
         </div>
-        <div>
-            <label>Status</label>
-            <select id="status" ref={statusRef}>
+        <div className="form_row">
+            <label className="form_label">Status</label>
+            <select id="status" className="form_input" ref={statusRef}>
                 <option value={"1"}>ACTIVE</option>
                 <option value={"0"}>INACTIVE</option>
             </select>
         </div>
-        <div>
-            <button type="button" onClick={doOnClickSave}>Save</button>
+        <div id="form_footer">
+            <button type="button" className="button" onClick={doOnClickSave}>Save</button>
         </div>
     </div>
 }

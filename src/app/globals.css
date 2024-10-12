@@ -1,12 +1,15 @@
-:root {
+:root{
     --default-gray: #262626;
+    --default-blue: #007bff;
+    --default-font-size: 0.9rem;
 }
 
 * {
     color: var(--default-gray);
-    font-size: 0.9rem;
+    font-size: var(--default-font-size);
 }
-a{
+
+a {
     text-decoration: none;
 }
 
@@ -49,8 +52,36 @@ h1 {
     font-weight: 500;
     line-height: 1.2;
 }
+
 .icon {
     * {
-      color: #fff;
+        color: #fff;
     }
-  }
+}
+
+.form_label{
+    color: var(--default-gray);
+    width: 150px;
+}
+.form_row{
+    display: flex;
+    margin-bottom: 5px;
+    flex-grow: 2;
+}
+.form_input{
+    flex: 1;
+}
+#form_footer{
+    display: flex;
+    justify-content: center;
+}
+.button{
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--default-blue);
+    padding: 2px 5px;
+    font-variant: all-petite-caps;
+    border-radius: 0.25rem;
+    color: #fff;
+    background-color: var(--default-blue);
+}

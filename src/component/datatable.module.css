@@ -22,9 +22,9 @@
 .toolbar_button{
     cursor: pointer;
     text-align: center;
-    border: 1px solid #007bff;
+    border: 1px solid var(--default-blue);
     padding: 10px;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #007bff;
+    background-color: var(--default-blue);
 }

@@ -6,9 +6,10 @@ import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import styles from "./datatable.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/navigation";
 const DataTable =  () =>{
     const [categoryList, setCategoryList] = useState([])
-
+    const router = useRouter()
     useEffect(()=>{
         getCategoryList().then((data)=>{
             setCategoryList(data)
@@ -21,22 +22,7 @@ const DataTable =  () =>{
     }
 
     async function doOnClickEdit(id:string){
-        let requestBody = {
-            "id": 1,
-            "category_name": "food",
-            "active": false
-        }
-        try{
-            let response = await axios.post("/api/category",requestBody)
-        }catch(exception){
-            if(exception instanceof AxiosError){
-                let errorData = (exception as AxiosError).response?.data
-                if(errorData.status == "400-001"){
-                    alert("error")
-                }
-            }
-        }
-    
+        router.push(`/category/edit/${id}`)
     }
     async function doOnClickDelete(id:string){
         try{
@@ -60,7 +46,7 @@ const DataTable =  () =>{
     }
     return <div>
         <div className={styles.toolbar_panel}>
-            <Link className={styles.toolbar_button} href={"/category/create"}>
+            <Link className={styles.toolbar_button}  href={"/category/create"} scroll={false} >
                 <FontAwesomeIcon icon={faPlus} className="icon" size="1x" /> Add Category
             </Link>
         </div>
@@ -80,6 +66,7 @@ const DataTable =  () =>{
                         <td>{category.category_name}</td>
                         <td>{category.active ? "ACTIVE" : "INACTIVE"}</td>
                         <td className={styles.management}>
+                            <DataTableButton icon={faPenToSquare} dataId={category.id} onClick={doOnClickEdit} />
                             <DataTableButton icon={faPenToSquare} dataId={category.id} onClick={doOnClickEdit} />
                             <DataTableButton icon={faTrash} dataId={category.id} onClick={doOnClickDelete}/>
                         </td>
