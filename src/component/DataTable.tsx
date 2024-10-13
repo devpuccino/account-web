@@ -70,7 +70,6 @@ const DataTable =  () =>{
                         <td>{category.active ? "ACTIVE" : "INACTIVE"}</td>
                         <td className={styles.management}>
                             <DataTableButton icon={faPenToSquare} dataId={category.id} onClick={doOnClickEdit} />
-                            <DataTableButton icon={faPenToSquare} dataId={category.id} onClick={doOnClickEdit} />
                             <DataTableButton icon={faTrash} dataId={category.id} onClick={doOnClickDelete}/>
                         </td>
                     </tr>

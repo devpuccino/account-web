@@ -1,13 +1,31 @@
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async(request:NextRequest, context:{params:{ id:string }}) =>{
-    let data = { id: '1', category_name: 'Food', active: true }
     let responseBody = {
-        status: "200-000",
-        message: "Success",
-        data: data
+        status: "",
+        message: "",
+        data: null
     }
-    return NextResponse.json(responseBody)
+    let httpStatus = 200
+    try{
+        let result = await fetch(`http://localhost:8080/account-service/api/category/${context.params.id}`,{
+            cache: "no-cache"
+        })
+        let response = await result.json()
+        responseBody.status = response.code
+        responseBody.message = response.message
+        responseBody.data = response.data
+    }catch(error){
+        responseBody = {
+            status: "500-001",
+            message: "Unexpected error",
+            data: null
+        }
+        httpStatus = 500
+    }
+    return NextResponse.json(responseBody,{
+        status: httpStatus
+    })
 }
 
 export const PUT = async(request:NextRequest,context:{params:{id:string}})=>{
