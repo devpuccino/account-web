@@ -1,9 +1,19 @@
-import { Card, Col, Flex, Row } from "antd"
+"use client"
+import { Button, Card, Col, Flex, Row } from "antd"
 import Title from "antd/es/typography/Title"
+import { useRouter } from "next/navigation"
+
 
 const WalletPage = ()=>{
+    const router = useRouter()
+    const doOnClickAddWalletButton = () =>{
+        router.push("/wallet/create")
+    }
     return <div>
         <Title>Wallet</Title>
+        <Flex justify="flex-end">
+            <Button color="default" variant="outlined" onClick={doOnClickAddWalletButton}>Add Wallet</Button>
+        </Flex>
         <Flex gap={"small"}>
             
                 <Card title="Credit Card">
