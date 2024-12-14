@@ -1,7 +1,6 @@
 "use client"
 import StyledComponentsRegistry from "@/lib/registry"
 import { notosan } from "./fonts"
-import "./globals.css"
 import { AntdRegistry } from "@ant-design/nextjs-registry"
 import { Button, Layout, theme } from "antd"
 import Sider from "antd/es/layout/Sider"
