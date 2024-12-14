@@ -10,27 +10,29 @@ class WalletService {
         return wallet
     }
     getWallet = (): Wallet[] => {
-        return [new CreditCardWallet("1",
+        return [new CreditCardWallet(
             "scb",
-            "THB",
-            "creditcard",
+            "bath",
+            "credit_card",
             "VISA",
             100000,
             1,
-            1
+            1,
+            "1"
         )]
     }
 
     getWalletById = (walletId: string): Wallet => {
 
-        return new CreditCardWallet(walletId,
+        return new CreditCardWallet(
             "scb",
-            "THB",
-            "creditcard",
-            "VISA",
+            "bath",
+            "credit_card",
+            "visa",
             100000,
             1,
-            1
+            1,
+            walletId
         )
     }
 }

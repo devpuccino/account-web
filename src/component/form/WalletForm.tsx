@@ -1,4 +1,7 @@
 "use client"
+import ResponseStatus, { Status } from "@/lib/constant/Status"
+import { CommonResponse } from "@/lib/model/Common"
+import { CashWallet, CreditCardWallet, Wallet } from "@/lib/model/Wallet"
 import { CreditCardOutlined, SaveOutlined, WalletOutlined } from "@ant-design/icons"
 import { Button, Form, Input, InputNumber, message, Radio, RadioChangeEvent, Select } from "antd"
 import Title from "antd/es/typography/Title"
@@ -8,16 +11,6 @@ import styled from "styled-components"
 const NumberTextField = styled(InputNumber)`
     width: 100%
 `
-export interface Wallet {
-    balance: number
-    walletName: string
-    currency: string
-    walletType: string
-    cardType: string
-    creditLimit: number
-    dueDate: number
-    billingDate: number
-}
 interface WalletProperties {
     wallet?: Wallet | null
 }
@@ -44,25 +37,32 @@ const WalletForm = ({ wallet }: WalletProperties) => {
                     name: "wallet_type", value: wallet.walletType
                 },
                 {
-                    name: "balance", value: wallet.balance
-                },
-                {
                     name: "wallet_name", value: wallet.walletName
-                },
-                {
-                    name: "card_type", value: wallet.cardType ? wallet.cardType : "visa"
-                },
-                {
-                    name: "credit_limit", value: wallet.creditLimit ? wallet.creditLimit : 100
-                },
-                {
-                    name: "due_date", value: wallet.dueDate ? wallet.dueDate : 1
-                }
-                ,
-                {
-                    name: "billing_date", value: wallet.billingDate ? wallet.billingDate : 1
                 }
             ])
+            if (wallet.walletType == "cash") {
+                form.setFields([
+                    {
+                        name: "balance", value: (wallet as CashWallet).balance
+                    }
+                ])
+            }
+            if (wallet.walletType = "credit_card") {
+                form.setFields([
+                    {
+                        name: "card_type", value: (wallet as CreditCardWallet).cardType
+                    },
+                    {
+                        name: "credit_limit", value: (wallet as CreditCardWallet).creditLimit
+                    },
+                    {
+                        name: "due_date", value: (wallet as CreditCardWallet).dueDate
+                    },
+                    {
+                        name: "billing_date", value: (wallet as CreditCardWallet).billingDate
+                    }
+                ])
+            }
         }
 
     }, [wallet])
@@ -88,20 +88,18 @@ const WalletForm = ({ wallet }: WalletProperties) => {
         required: "'${label}' is required!",
     }
     const doOnSubmitForm = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        let request = {
-            wallet_name: walletName,
-            currency: currency,
-            wallet_type: walletType,
-            balance: balance,
-            card_type: cardType,
-            credit_limit: creditLimit,
-            due_date: dueDate,
-            billing_date: billingDate
+        let wallet!: Wallet
+        if (walletType == "cash") {
+            wallet = new CashWallet(walletName, currency, walletType, balance)
+            wallet.walletId = ""
+        } else {
+            wallet = new CreditCardWallet(walletName, currency, walletType, cardType, creditLimit, dueDate, billingDate)
         }
-        axios.post("/api/wallet", request).then((response) => {
+
+        axios.post("/api/wallet", wallet).then((response) => {
 
         }).catch((reason: AxiosError) => {
-            if (reason.response?.data.status == "400-002") {
+            if ((reason.response?.data as CommonResponse<Wallet>)?.code == ResponseStatus[Status.DUPLICATED_DATA].code) {
                 form.setFields([
                     {
                         name: "wallet_name",
@@ -128,7 +126,7 @@ const WalletForm = ({ wallet }: WalletProperties) => {
             onFinish={doOnSubmitForm}
             initialValues={{
                 currency: "bath",
-                wallet_type: "cash",
+                wallet_type: currentWalletType,
                 balance: 0,
                 card_type: "visa",
                 credit_limit: 100,
