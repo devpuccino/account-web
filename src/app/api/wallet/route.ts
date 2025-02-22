@@ -5,11 +5,12 @@ import WalletService from "@/lib/service/WalletService"
 import { throws } from "assert"
 import { NextRequest, NextResponse } from "next/server"
 
-export const GET = (request: NextRequest) => {
+export const GET = async (request: NextRequest) => {
     let response!: CommonResponse<Wallet[]>
+
     let httpStatus = 200
     try {
-        const wallets = WalletService.getWallet()
+        const wallets =  await WalletService.getWallet() as Wallet[]
         response = new CommonResponse(Status.SUCCESS, wallets)
     } catch (exception) {
         response = new CommonResponse(Status.UNEXPECTED_ERROR)
@@ -23,9 +24,10 @@ export const POST = async (request: NextRequest) => {
     let httpStatus = 200
     try {
         const requestBody = await request.json() as Wallet
-        const wallet = WalletService.saveWallet(requestBody)
+        const wallet = await WalletService.addWallet(requestBody)
         response = new CommonResponse(Status.SUCCESS, wallet)
     } catch (exception) {
+        console.error(exception)
         response = new CommonResponse(Status.UNEXPECTED_ERROR)
         httpStatus = 500
     }

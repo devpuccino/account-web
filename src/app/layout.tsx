@@ -5,16 +5,22 @@ import { AntdRegistry } from "@ant-design/nextjs-registry"
 import { Button, Layout, theme } from "antd"
 import Sider from "antd/es/layout/Sider"
 import { Content, Header } from "antd/es/layout/layout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 import HeaderPanel from "@/component/panel/HeaderPanel"
 import SidebarPanel from "@/component/panel/SidebarPanel"
+import { Grid } from 'antd';
+const { useBreakpoint } = Grid;
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+    const screens = useBreakpoint()
     const [sideBarCollapsed, setSidebarCollapsed] = useState<boolean>(false)
-
+    useEffect(()=>{
+        const isMobile = !screens.lg && !screens.xl;
+        setSidebarCollapsed(isMobile)
+    },[])
     return (
         <html lang="en" className={notosan.className}>
             <body>
