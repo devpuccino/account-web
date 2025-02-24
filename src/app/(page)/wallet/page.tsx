@@ -3,6 +3,7 @@ import WalletService from "@/lib/service/WalletService"
 import { PlusSquareOutlined, WalletOutlined } from "@ant-design/icons"
 import { Button, Col, Empty, Row } from "antd"
 import Title from "antd/es/typography/Title"
+import Link from "next/link"
 
 const WalletPage = async () => {
     const wallets = await WalletService.getWallet()
@@ -34,9 +35,11 @@ const WalletPage = async () => {
         </Row>
         <Row justify="end" style={{ marginBottom: "15px" }}>
             <Col>
-                <Button href="/wallet/create" color="primary" variant="solid">
-                    <PlusSquareOutlined />Add new Wallet
-                </Button>
+                <Link href="/wallet/create" passHref legacyBehavior>
+                    <Button color="primary" variant="solid">
+                        <PlusSquareOutlined />Add new Wallet
+                    </Button>
+                </Link>
             </Col>
         </Row>
         {renderWallet()}
