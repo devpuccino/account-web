@@ -1,7 +1,7 @@
 "use client"
 
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
-import { Badge, Card, Flex } from "antd";
+import { DeleteOutlined, EditOutlined, EllipsisOutlined, RetweetOutlined, SettingOutlined } from "@ant-design/icons";
+import { Badge, Card, Descriptions, Flex } from "antd";
 import FormatCurrency from "../label/FormatCurrency";
 import { useRouter } from "next/navigation";
 
@@ -29,8 +29,8 @@ const WalletCard = ({ id, walletName, balance, type }: Properties) => {
     const router = useRouter()
     const actions: React.ReactNode[] = [
         <EditOutlined key="edit" onClick={(event) => doOnClickEditCard(id)} />,
-        <SettingOutlined key="setting" onClick={(event) => doOnClickTransferCard(id)} />,
-        <EllipsisOutlined key="ellipsis" onClick={(event) => doOnClickDeleteCard(id)} />,
+        <RetweetOutlined key="setting" onClick={(event) => doOnClickTransferCard(id)} />,
+        <DeleteOutlined key="ellipsis" onClick={(event) => doOnClickDeleteCard(id)} />,
     ];
     const doOnClickEditCard = (id: string) => {
         router.push(`/wallet/${id}`)
@@ -43,10 +43,10 @@ const WalletCard = ({ id, walletName, balance, type }: Properties) => {
     }
     return <Badge.Ribbon text={ribbonText()} color={ribbonColor()}>
         <Card title={walletName} actions={actions} >
-            <Flex gap="small" vertical={false} >
-                <p>Balance:</p>
-                <p><FormatCurrency value={balance} currency="USD" /></p>
-            </Flex>
+        <Descriptions >
+        <Descriptions.Item label="Balance"><FormatCurrency value={balance} currency="USD" /></Descriptions.Item>
+
+            </Descriptions>
         </Card>
     </Badge.Ribbon>
 }

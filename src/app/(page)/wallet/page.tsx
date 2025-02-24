@@ -1,7 +1,7 @@
 import WalletCard from "@/component/card/WalletCard"
 import WalletService from "@/lib/service/WalletService"
 import { PlusSquareOutlined, WalletOutlined } from "@ant-design/icons"
-import { Button, Col, Divider, Row, Space } from "antd"
+import { Button, Col, Empty, Row } from "antd"
 import Title from "antd/es/typography/Title"
 
 const WalletPage = async () => {
@@ -18,7 +18,12 @@ const WalletPage = async () => {
                     />
                 </Col>
             })
-            return <Row gutter={[15, 15]}>{contents}</Row>
+            if(contents.length== 0){
+                return <Row justify="center"><Col><Empty /></Col></Row>
+            }else{
+                return <Row gutter={[15, 15]}>{contents}</Row>
+            }
+           
         } else {
             return null
         }
@@ -27,7 +32,7 @@ const WalletPage = async () => {
         <Row gutter={[10, 40]}>
             <Col span={24}><Title><WalletOutlined /> Wallets</Title></Col>
         </Row>
-        <Row gutter={100} justify={{ sm: "start", md: "start", lg: "end" }} style={{ marginBottom: "15px" }}>
+        <Row justify="end" style={{ marginBottom: "15px" }}>
             <Col>
                 <Button href="/wallet/create" color="primary" variant="solid">
                     <PlusSquareOutlined />Add new Wallet
