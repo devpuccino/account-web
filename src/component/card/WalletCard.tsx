@@ -1,7 +1,7 @@
 "use client"
 
-import { DeleteOutlined, EditOutlined, EllipsisOutlined, RetweetOutlined, SettingOutlined } from "@ant-design/icons";
-import { Badge, Card, Descriptions, Flex } from "antd";
+import { DeleteOutlined, EditOutlined, RetweetOutlined } from "@ant-design/icons";
+import { Badge, Card, Descriptions } from "antd";
 import FormatCurrency from "../label/FormatCurrency";
 import { useRouter } from "next/navigation";
 
