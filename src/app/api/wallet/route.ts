@@ -1,8 +1,7 @@
-import StatusCode, { Status } from "@/lib/constant/Status"
+import { Status } from "@/lib/constant/Status"
 import { CommonResponse } from "@/lib/model/Common"
 import { Wallet } from "@/lib/model/Wallet"
 import WalletService from "@/lib/service/WalletService"
-import { throws } from "assert"
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async (request: NextRequest) => {
