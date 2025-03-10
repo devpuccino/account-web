@@ -85,7 +85,7 @@ const WalletForm = ({ wallet }: WalletProperties) => {
         { label: "Unionpay", value: "union_pay" }
     ]
     const doOnChangeWalletType = (event: RadioChangeEvent) => {
-        setCurrentWalletType(event.target.value)
+        /* setCurrentWalletType(event.target.value) */
     }
     const validateMessages = {
         required: "'${label}' is required!",
@@ -147,7 +147,7 @@ const WalletForm = ({ wallet }: WalletProperties) => {
                     onFinish={doOnSubmitForm}
                     initialValues={{
                         currency: "bath",
-                        wallet_type: currentWalletType,
+                        wallet_type: wallet?.walletType,
                         balance: 0,
                         card_type: "visa",
                         credit_limit: 100,
