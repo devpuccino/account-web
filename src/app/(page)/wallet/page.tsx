@@ -1,34 +1,48 @@
-"use client"
-import { Button, Card, Col, Flex, Row } from "antd"
+import WalletCard from "@/component/card/WalletCard"
+import WalletService from "@/lib/service/WalletService"
+import { PlusSquareOutlined, WalletOutlined } from "@ant-design/icons"
+import { Button, Col, Empty, Row } from "antd"
 import Title from "antd/es/typography/Title"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
-
-const WalletPage = ()=>{
-    const router = useRouter()
-    const doOnClickAddWalletButton = () =>{
-        router.push("/wallet/create")
+const WalletPage = async () => {
+    const wallets = await WalletService.getWallet()
+    const renderWallet = () => {
+        if (wallets) {
+            const contents = wallets.map((wallet) => {
+                return <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }}>
+                    <WalletCard
+                        id={wallet.wallet_id}
+                        walletName={wallet.wallet_name}
+                        balance={wallet.balance}
+                        type={wallet.wallet_type}
+                    />
+                </Col>
+            })
+            if(contents.length== 0){
+                return <Row justify="center"><Col><Empty /></Col></Row>
+            }else{
+                return <Row gutter={[15, 15]}>{contents}</Row>
+            }
+           
+        } else {
+            return null
+        }
     }
     return <div>
-        <Title>Wallet</Title>
-        <Flex justify="flex-end">
-            <Button color="default" variant="outlined" onClick={doOnClickAddWalletButton}>Add Wallet</Button>
-        </Flex>
-        <Flex gap={"small"}>
-            
-                <Card title="Credit Card">
-                    <div>วงเงิน 100,000</div>
-                    <div>ใช้ไป 1,000</div>
-                </Card>
-                <Card title="Credit Card">
-                    <div>วงเงิน 100,000</div>
-                    <div>ใช้ไป 1,000</div>
-                </Card>
-                <Card title="Credit Card">
-                    <div>วงเงิน 100,000</div>
-                    <div>ใช้ไป 1,000</div>
-                </Card>
-        </Flex>
+        <Row gutter={[10, 40]}>
+            <Col span={24}><Title><WalletOutlined /> Wallets</Title></Col>
+        </Row>
+        <Row justify="end" style={{ marginBottom: "15px" }}>
+            <Col>
+                <Link href="/wallet/create" passHref legacyBehavior>
+                    <Button color="primary" variant="solid">
+                        <PlusSquareOutlined />Add new Wallet
+                    </Button>
+                </Link>
+            </Col>
+        </Row>
+        {renderWallet()}
     </div>
 }
 export default WalletPage
