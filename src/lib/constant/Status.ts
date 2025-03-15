@@ -5,7 +5,7 @@ export const Status = {
 }
 const ResponseStatus: { [key: string]: { code: string, message: string } } = {
     SUCCESS: { code: "200-000", message: "Success" },
-    DUPLICATED_DATA: { code: "400-002", message: "Duplicated data" },
+    DUPLICATED_DATA: { code: "400-001", message: "Duplicated data" },
     UNEXPECTED_ERROR: { code: "500-001", message: "Unexpected error" }
 }
 export default ResponseStatus
