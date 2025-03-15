@@ -1,4 +1,4 @@
-import CategoryPage from "@/app/category/page"
+import CategoryPage from "@/app/_category/page"
 
 describe("category - CategoryPage",()=>{
   it("should render correct Category Page",()=>{
