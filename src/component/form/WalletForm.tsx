@@ -68,7 +68,7 @@ const WalletForm = ({ wallet }: WalletProperties) => {
             }
         }
 
-    }, [wallet])
+    }, [wallet,form])
     const CURRENCY_OPTIONS = [
         { label: "Thai bath(฿)", value: "bath" },
         { label: "Dollar($)", value: "dollar" }

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
     try {
-        let { code, message, data } = await fetch("http://localhost:8080/account-service/api/category", {
+        let { code, message, data } = await fetch("http://192.168.7.100:8181/account-service/api/category", {
             cache: "no-cache"
         })
             .then(response => response.json())
@@ -36,7 +36,7 @@ export const POST = async (request: NextRequest) => {
     let responseBody = null
     let httpStatus = 200
     try{
-        let result = await fetch("http://localhost:8080/account-service/api/category", {
+        let result = await fetch("http://192.168.7.100:8181/account-service/api/category", {
             cache: "no-cache",
             method: "POST",
             body: JSON.stringify({

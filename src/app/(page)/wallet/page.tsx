@@ -9,9 +9,10 @@ const WalletPage = async () => {
     const wallets = await WalletService.getWallet()
     const renderWallet = () => {
         if (wallets) {
-            const contents = wallets.map((wallet) => {
-                return <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }}>
+            const contents = wallets.map((wallet:any) => {
+                return <Col key={`col-${wallet.wallet_id}`} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }}>
                     <WalletCard
+                        key={wallet.wallet_id}
                         id={wallet.wallet_id}
                         walletName={wallet.wallet_name}
                         balance={wallet.balance}
