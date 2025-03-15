@@ -1,7 +1,8 @@
+import { getCategoryById } from "@/app/api/category/actions"
 import CategoryForm from "@/component/form/CategoryForm"
 const EditCategoryPage = async ({params}:{params: Promise<{ id: string }>})=>{
     const { id } = await params
-    const response = await fetch(`http://192.168.7.100:8181/account-service/api/category/${id}`).then((res) => res.json());
-    return <CategoryForm id={response.data.id} categoryName={response.data.category_name} categoryStatus={response.data.active} />
+    const category:any = await getCategoryById(id)
+    return <CategoryForm id={category.id} categoryName={category.category_name} categoryStatus={category.active} />
 }
 export default EditCategoryPage
