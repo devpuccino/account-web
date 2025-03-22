@@ -2,7 +2,7 @@
 import React from 'react';
 import { notosan } from "./fonts"
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { Layout, Menu, theme } from "antd"
+import { Col, Layout, Menu, Row, theme } from "antd"
 import "./globals.css"
 import { Content, Footer, Header } from "antd/es/layout/layout"
 import type Entity from '@ant-design/cssinjs/es/Cache';
@@ -65,19 +65,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                     margin: '24px 16px 0', minHeight: "calc(100vh - (64px + 64px + 24px))", background: colorBgContainer,
                                     borderRadius: borderRadiusLG, overflow: 'initial'
                                 }}>
-                                    <div
-                                        style={{
-                                            padding: 24,
-                                            minHeight: 360,
-                                            background: colorBgContainer,
-                                            borderRadius: borderRadiusLG,
-                                        }}
+                                    <div style={{ padding: 24, minHeight: 360, background: colorBgContainer,borderRadius: borderRadiusLG}}
                                     >
                                         {children}
                                     </div>
                                 </Content>
                                 <Footer style={{ textAlign: 'center', height: "64px" }}>
-                                    Ant Design ©{new Date().getFullYear()} Created by Ant UED
+                                    Account Web ©{new Date().getFullYear()} Created by DevPuccino
                                 </Footer>
                             </Layout>
                         </Layout>

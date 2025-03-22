@@ -1,5 +1,4 @@
 "use client"
-import { clearCategoryCache } from "@/app/api/category/actions"
 import ResponseStatus from "@/lib/constant/Status"
 import { CheckCircleFilled, CloseCircleOutlined, SaveOutlined } from "@ant-design/icons"
 import { Button, Col, Form, Input, notification, Row, Switch } from "antd"
