@@ -1,20 +1,19 @@
-"use client"
+import { Card, Col, Row } from "antd"
 
-import { useEffect, useState } from "react"
-
-const WalletListPanel = () => {
-    const [walletList, setWalletList] = useState<any>(null)
-    useEffect(() => {
-        fetch("/api/wallet",{headers:{
-            "cache-control":"no-cache"
-        }})
-        .then((response) => response.json())
-        .then((response: any) => {
-            setWalletList(response.data)
-        })
-    }, [])
-    return <>{walletList?
-        <div>fasdfasd</div>
-    :null}</>
+interface Props {
+    walletList: any[] | null
+}
+const WalletListPanel = ({ walletList }: Props) => {
+    return <Row id="wallet_list_panel" gutter={16}>
+        {walletList ?
+            walletList.map((wallet) => {
+                return <Col span="6">
+                    <Card title={wallet.wallet_name} variant="borderless" >
+                        <div>balance: {wallet.balance}</div>
+                    </Card>
+                </Col>
+            })
+            : null}
+    </Row>
 }
 export default WalletListPanel

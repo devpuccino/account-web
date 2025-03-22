@@ -21,7 +21,9 @@ class AccountServiceClient {
         return await response.json()
     }
     getByIdWallet = async(walletId:string):Promise<CommonResponse<Wallet>>=>{
-        const response = await fetch(`http://192.168.7.100:17001/account-service/api/wallet/${walletId}`)
+        const response = await fetch(`http://192.168.7.100:17001/account-service/api/wallet/${walletId}`,{
+            cache: 'no-store' 
+        })
         return await response.json()
     }
 }

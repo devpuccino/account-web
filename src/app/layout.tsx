@@ -31,6 +31,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             key: "menu--home",
             icon: <HomeOutlined />,
             label: <Link href="/">Home</Link>
+        },{
+            key: "menu--transaction",
+            icon: <HomeOutlined />,
+            label: <Link href="/transaction">Transactions</Link>
         },
         {
             key: "menu--wallet",
