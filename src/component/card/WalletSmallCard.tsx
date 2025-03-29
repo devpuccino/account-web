@@ -58,7 +58,8 @@ interface Props {
     walletName: string,
     balance: number,
     currency:string
-    active: boolean
+    active: boolean,
+    onClick:Function
 }
 interface Currencies {
     [key: string]: string;
@@ -68,7 +69,7 @@ const currencies:Currencies = {
     dollar: "USD",
     bath: "THB"
 }
-const WalletSmallCard = ({ walletId, walletName, balance,currency, active }: Props) => {
+const WalletSmallCard = ({ walletId, walletName, balance,currency, active,onClick }: Props) => {
     const getIconText = (walletName:string):string =>{
         if(walletName.length==1){
             return walletName;
@@ -82,7 +83,7 @@ const WalletSmallCard = ({ walletId, walletName, balance,currency, active }: Pro
             currency: currencies[currency]
         }).format(value);
     }
-    return <Wrapper id={`wallet-small-card-${walletId}`} className={active ? "active" : ""}>
+    return <Wrapper id={`wallet-small-card-${walletId}`} className={active ? "active" : ""} onClick={()=>onClick(walletId)}>
         <WalletIcon>{getIconText(walletName)}</WalletIcon>
         <InfoPanel>
             <Title>{walletName}</Title>

@@ -1,28 +1,36 @@
-import FormatCurrency from "@/component/label/FormatCurrency"
+"use client"
+import TransactionDatePanel from "@/component/panel/TransactionDatePanel"
+import TransactionListPanel from "@/component/panel/TransactionListPanel"
 import WalletListPanel from "@/component/panel/WalletListPanel"
-import { Button, Card, Col, Descriptions, Flex, Row } from "antd"
+import { getFirstWalletId } from "./action"
+import { useEffect, useState } from "react"
 
-async function getWallet() {
-    let response = await fetch("http://192.168.7.100:17001/account-service/api/wallet", {
+function getWallet() {
+    return fetch("/api/wallet", {
         cache: "no-cache"
     })
         .then((response) => response.json())
-    return response.data
+        .then((response) => response.data)
 }
-const TransactionPage = async () => {
-    const walletList: any[] = await getWallet()
+
+const TransactionPage = () => {
+    const [selectedWalletId, setSelectedWalletId] = useState<string | null>(null)
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+    const [walletList, setWalletList] = useState<any[]>([])
+    useEffect(() => {
+        getWallet().then((data) => {
+            setWalletList(data)
+            setSelectedWalletId(getFirstWalletId(data))
+        })
+    }, [])
     return <>
-        <WalletListPanel walletList={walletList} />
-        <Row id="toolbar_panel">
-            <Col span={12}>Time</Col>
-            <Col span={12}>
-            <Flex gap="small" wrap>
-                <Button type="primary">Primary Button</Button>
-                <Button type="primary">Primary Button</Button>
-                </Flex>
-            </Col>
-        </Row>
-        <div id="transaction_panel">transaction</div>
+        <WalletListPanel walletList={walletList} selectedWalletId={selectedWalletId} onClickWalletCard={setSelectedWalletId} />
+        <TransactionDatePanel selectedDate={selectedDate} onChangeDate={setSelectedDate} />
+
+        <TransactionListPanel
+            walletId={selectedWalletId}
+            selectedDate={selectedDate}
+        />
     </>
 }
 export default TransactionPage
