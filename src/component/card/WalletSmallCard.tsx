@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     max-width: 130px;
     min-width: 130px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 `
 const WalletIcon = styled.div`
     background-color: #d8d8d8;
