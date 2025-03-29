@@ -10,8 +10,13 @@ const Wrapper = styled.div`
     transition: 0.3s;
     padding: 5px;
     border-radius: 10px;
-    &:hover,&.active{
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    &:hover{
+        box-shadow: 0 4px 8px 0 #1677ff;
+    }
+    &.active{
+        box-shadow: 0 4px 8px 0 #1677ff;
+        background-color: #1677ff;
+        color: #fff;
     }
     max-width: 100px;
     min-width: 100px;
@@ -25,6 +30,10 @@ const WalletIcon = styled.div`
     height: 32px;
     line-height: 22px;
     text-align: center;
+    ${Wrapper}.active &{
+        background-color: #fff;
+        color: #000;
+    }
 `
 const InfoPanel = styled.div`
     flex: 1;
@@ -37,6 +46,9 @@ const Title = styled.div`
 const Description = styled.div`
     font-size: 0.5rem;
     color: #bababa;
+    ${Wrapper}.active &{
+        color: #fff;
+    }
 `
 interface Props {
     walletId:string,
