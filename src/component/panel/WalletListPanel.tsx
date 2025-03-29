@@ -25,6 +25,7 @@ const WalletListPanel = ({ walletList }: Props) => {
                     key={index}
                     walletId={wallet.wallet_id}
                     walletName={wallet.wallet_name}
+                    currency={wallet.currency}
                     balance={wallet.balance} />
             })
             : null}

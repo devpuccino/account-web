@@ -18,8 +18,8 @@ const Wrapper = styled.div`
         background-color: #1677ff;
         color: #fff;
     }
-    max-width: 100px;
-    min-width: 100px;
+    max-width: 130px;
+    min-width: 130px;
     cursor: pointer;
 `
 const WalletIcon = styled.div`
@@ -34,6 +34,7 @@ const WalletIcon = styled.div`
         background-color: #fff;
         color: #000;
     }
+    text-transform: uppercase;
 `
 const InfoPanel = styled.div`
     flex: 1;
@@ -42,6 +43,7 @@ const InfoPanel = styled.div`
 `
 const Title = styled.div`
     font-size: 0.7rem;
+    line-height: 1rem;
 `
 const Description = styled.div`
     font-size: 0.5rem;
@@ -51,19 +53,39 @@ const Description = styled.div`
     }
 `
 interface Props {
-    walletId:string,
-    walletName:string,
-    balance:number,
-    active:boolean
+    walletId: string,
+    walletName: string,
+    balance: number,
+    currency:string
+    active: boolean
+}
+interface Currencies {
+    [key: string]: string;
 }
 
-const WalletSmallCard = ({walletId,walletName,balance,active}:Props) =>{
-    
-    return <Wrapper id={`wallet-small-card-${walletId}`} className={active?"active":""}>
-        <WalletIcon>IC</WalletIcon>
+const currencies:Currencies = {
+    dollar: "USD",
+    bath: "THB"
+}
+const WalletSmallCard = ({ walletId, walletName, balance,currency, active }: Props) => {
+    const getIconText = (walletName:string):string =>{
+        if(walletName.length==1){
+            return walletName;
+        }else{
+            return walletName.slice(0, 2);
+        }
+    }
+    const formatBalance = (value: number,currency:string): string => {
+        return new Intl.NumberFormat('th-TH', {
+            style: 'currency',
+            currency: currencies[currency]
+        }).format(value);
+    }
+    return <Wrapper id={`wallet-small-card-${walletId}`} className={active ? "active" : ""}>
+        <WalletIcon>{getIconText(walletName)}</WalletIcon>
         <InfoPanel>
             <Title>{walletName}</Title>
-            <Description>{balance}</Description>
+            <Description>{formatBalance(balance,currency)}</Description>
         </InfoPanel>
     </Wrapper>
 }
