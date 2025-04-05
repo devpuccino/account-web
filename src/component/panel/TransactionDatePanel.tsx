@@ -1,7 +1,8 @@
 "use client"
+import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
 import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"
 import { Col, Flex } from "antd"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 const formatter = new Intl.DateTimeFormat("th-TH", {
     year: "numeric",
@@ -22,22 +23,21 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
 `
-interface Props {
-    selectedDate:Date
-    onChangeDate:Function
-}
 const timeOfOneDate = 24 * 60 * 60 * 1000
-const TransactionDatePanel = ({selectedDate,onChangeDate}:Props) => {
+const TransactionDatePanel = () => {
+    const context = useContext(TransactionContext)
     const getCurrentDate = () => {
-        return formatter.format(selectedDate)
+        return formatter.format(context.selectedDate)
     }
     const onClickPreviusDate = () => {
-        onChangeDate(new Date(selectedDate.getTime() - timeOfOneDate))
+        if(context.setSelectedDate){
+            context.setSelectedDate(new Date(context.selectedDate.getTime() - timeOfOneDate))
+        }
     }
     const onClickNextDate = () => {
-        const nextDay = new Date(selectedDate.getTime() + timeOfOneDate)
-        if (nextDay.getTime() < new Date().getTime()) {
-            onChangeDate(nextDay)
+        const nextDay = new Date(context.selectedDate.getTime() + timeOfOneDate)
+        if (nextDay.getTime() < new Date().getTime() && context.setSelectedDate) {
+            context.setSelectedDate(nextDay)
         }
     }
     return <Wrapper>

@@ -1,18 +1,16 @@
 "use client"
 
-import { useEffect } from "react"
+import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
+import { useContext, useEffect } from "react"
 
-interface Props{
-    walletId:string|null
-    selectedDate:Date
-}
-const TransactionListPanel = ({walletId,selectedDate}:Props) =>{
+const TransactionListPanel = () =>{
+    const context = useContext(TransactionContext)
     useEffect(()=>{
-        console.log(walletId)
-        console.log(selectedDate)
-    },[])
+        console.log(context.selectedWalletId)
+        console.log(context.selectedDate)
+    },[context.selectedDate,context.selectedWalletId])
     return <>
-        <div>{walletId}</div>
+        <div>{context.selectedWalletId}</div>
     </>
 }
 export default TransactionListPanel
