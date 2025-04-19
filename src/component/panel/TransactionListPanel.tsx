@@ -1,13 +1,18 @@
 "use client"
 
 import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
+import axios from "axios"
 import { useContext, useEffect } from "react"
 
 const TransactionListPanel = () =>{
     const context = useContext(TransactionContext)
     useEffect(()=>{
-        console.log(context.selectedWalletId)
-        console.log(context.selectedDate)
+        axios.get("/api/transactions",{
+            params:{
+                date: context.selectedDate.getTime(),
+                walletId: context.selectedWalletId
+            }
+        })
     },[context.selectedDate,context.selectedWalletId])
     return <>
         <div>{context.selectedWalletId}</div>

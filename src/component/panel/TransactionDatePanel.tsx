@@ -2,7 +2,7 @@
 import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
 import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"
 import { Col, Flex } from "antd"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 const formatter = new Intl.DateTimeFormat("th-TH", {
     year: "numeric",
@@ -25,6 +25,9 @@ const Wrapper = styled.div`
 `
 const timeOfOneDate = 24 * 60 * 60 * 1000
 const TransactionDatePanel = () => {
+    useEffect(()=>{
+        console.log(document.cookie)
+    })
     const context = useContext(TransactionContext)
     const getCurrentDate = () => {
         return formatter.format(context.selectedDate)

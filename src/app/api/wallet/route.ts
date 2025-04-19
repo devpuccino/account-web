@@ -18,17 +18,23 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json(response, { status: httpStatus })
 }
 export const POST = async (request: NextRequest) => {
-
-    let response!: CommonResponse<Wallet>
-    let httpStatus = 200
-    try {
-        const requestBody = await request.json() as Wallet
-        const wallet = await WalletService.addWallet(requestBody)
-        response = new CommonResponse(Status.SUCCESS, wallet)
-    } catch (exception) {
-        console.error(exception)
-        response = new CommonResponse(Status.UNEXPECTED_ERROR)
-        httpStatus = 500
-    }
-    return NextResponse.json(response, { status: httpStatus })
+        const csrfCookie = request.cookies.get("csrf_token")?.value
+        const csrfHeader = request.headers.get("csrf_token")
+        if(csrfCookie == csrfHeader){
+            let response!: CommonResponse<Wallet>
+            let httpStatus = 200
+            try {
+                const requestBody = await request.json() as Wallet
+                const wallet = await WalletService.addWallet(requestBody)
+                response = new CommonResponse(Status.SUCCESS, wallet)
+            } catch (exception) {
+                console.error(exception)
+                response = new CommonResponse(Status.UNEXPECTED_ERROR)
+                httpStatus = 500
+            }
+            return NextResponse.json(response, { status: httpStatus })
+        }else{
+            return NextResponse.json({}, { status: 406 })
+        }
+    
 }

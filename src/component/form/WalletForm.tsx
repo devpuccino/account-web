@@ -14,8 +14,9 @@ const NumberTextField = styled(InputNumber)`
 `
 interface WalletProperties {
     wallet?: Wallet | null
+    token: string
 }
-const WalletForm = ({ wallet }: WalletProperties) => {
+const WalletForm = ({ wallet,token }: WalletProperties) => {
     const [currentWalletType, setCurrentWalletType] = useState<string>(wallet ? wallet.walletType : "cash")
     const [form] = Form.useForm()
     const router = useRouter()
@@ -99,7 +100,11 @@ const WalletForm = ({ wallet }: WalletProperties) => {
             wallet = new CreditCardWallet(walletName, currency, walletType, cardType, creditLimit, dueDate, billingDate)
         }
 
-        axios.post("/api/wallet", wallet).then((response) => {
+        axios.post("/api/wallet", wallet,{
+            headers:{
+                "csrf_token":token
+            }
+        }).then((response) => {
             if (response.data.code == ResponseStatus[Status.SUCCESS].code) {
                 notification.open({
                     message: 'Wallet Created Successfully',
@@ -115,6 +120,9 @@ const WalletForm = ({ wallet }: WalletProperties) => {
                 })
             }
         }).catch((reason: AxiosError) => {
+            if(reason.status == 406){
+                router.refresh()
+            }
             if ((reason.response?.data as CommonResponse<Wallet>)?.code == ResponseStatus[Status.DUPLICATED_DATA].code) {
                 form.setFields([
                     {
