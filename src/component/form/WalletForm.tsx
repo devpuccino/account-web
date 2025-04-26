@@ -14,7 +14,7 @@ const NumberTextField = styled(InputNumber)`
 `
 interface WalletProperties {
     wallet?: Wallet | null
-    token: string
+    token?: string | null
 }
 const WalletForm = ({ wallet,token }: WalletProperties) => {
     const [currentWalletType, setCurrentWalletType] = useState<string>(wallet ? wallet.walletType : "cash")

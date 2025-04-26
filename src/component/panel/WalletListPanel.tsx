@@ -2,8 +2,8 @@
 import { useContext, useState } from "react"
 import WalletSmallCard from "../card/WalletSmallCard"
 import styled from "styled-components"
-import { getFirstWalletId } from "@/app/(page)/transaction/action"
-import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
+import { getFirstWalletId } from "@/app/transaction/action"
+import { TransactionContext } from "@/app/transaction/TransactionContextProvider"
 const Wrapper = styled.div`
     overflow-y :hidden;
     overflow-x: scroll;
