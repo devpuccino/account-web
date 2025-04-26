@@ -1,6 +1,6 @@
 "use client"
 
-import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
+import { TransactionContext } from "@/app/transaction/TransactionContextProvider"
 import axios from "axios"
 import { useContext, useEffect } from "react"
 
