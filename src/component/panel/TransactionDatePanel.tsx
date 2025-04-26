@@ -1,5 +1,5 @@
 "use client"
-import { TransactionContext } from "@/app/(page)/transaction/TransactionContextProvider"
+import { TransactionContext } from "@/app/transaction/TransactionContextProvider"
 import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"
 import { Col, Flex } from "antd"
 import { useContext, useEffect, useState } from "react"
