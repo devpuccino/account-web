@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress:open": "npx cypress open"
+    "cypress:open": "npx cypress open --component"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
@@ -23,12 +23,24 @@
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@cypress/react": "^9.0.1",
+    "@cypress/webpack-dev-server": "^4.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "cypress": "^13.13.3",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "cypress": "^14.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
+    "less": "^4.3.0",
+    "less-loader": "^12.2.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.2",
     "typescript": "^5"
   }
 }
