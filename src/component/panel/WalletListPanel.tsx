@@ -4,6 +4,7 @@ import WalletSmallCard from "../card/WalletSmallCard"
 import styled from "styled-components"
 import { getFirstWalletId } from "@/app/transaction/action"
 import { TransactionContext } from "@/app/transaction/TransactionContextProvider"
+import { Wallet } from "@/model/ClientModel"
 const Wrapper = styled.div`
     overflow-y :hidden;
     overflow-x: scroll;
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
     -ms-overflow-style: none;
 `
 interface Props {
-    walletList: any[] | null
+    walletList: Wallet[] | null
 }
 
 const WalletListPanel = ({ walletList }: Props) => {

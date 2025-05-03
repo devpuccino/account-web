@@ -1,6 +1,7 @@
 import CategoryService from "@/lib/service/CategoryService"
+import { Wallet } from "@/model/ClientModel"
 
-export function getFirstWalletId(walletList: any[] | null) {
+export function getFirstWalletId(walletList: Wallet[] | null) {
     if (walletList != null && walletList.length > 0) {
         return walletList[0].wallet_id
     }
@@ -9,7 +10,7 @@ export function getFirstWalletId(walletList: any[] | null) {
 export function getCategories() {
     return CategoryService.getAllCategories()
 }
-export function getWallet() {
+export function getWallet():Promise<Wallet[]> {
     return fetch("http://192.168.7.100:17001/account-service/api/wallet", {
         cache: "no-cache"
     })
